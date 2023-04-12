@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from 'react-router-dom';
+import { Route, Navigate, Routes } from 'react-router-dom';
 
 import Home from './Home/Home';
 import Movies from './Movies/Movies';
@@ -14,16 +9,14 @@ import Reviews from './Reviews/Reviews';
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/movies" component={Movies} />
-        <Route exact path="/movies/:movieId" component={MovieDetails} />
-        <Route exact path="/movies/:movieId/cast" component={Cast} />
-        <Route exact path="/movies/:movieId/reviews" component={Reviews} />
-        <Redirect to="/" />
-      </Switch>
-    </Router>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/movies" element={<Movies />} />
+      <Route path="/movies/:movieId" element={<MovieDetails />} />
+      <Route path="/movies/:movieId/cast" element={<Cast />} />
+      <Route path="/movies/:movieId/reviews" element={<Reviews />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
 
