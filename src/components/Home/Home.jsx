@@ -1,25 +1,29 @@
-import { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
-const API_KEY = '996f90502411052111a97ebd41f1eb4e';
+import { getTrendingMovies } from '../data/Api';
 
 function Home() {
-  const [movies, setMovies] = useState([]);
+  const [trendingMovies, setTrendingMovies] = useState([]);
 
   useEffect(() => {
-    fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`)
-      .then(response => response.json())
-      .then(data => setMovies(data.results))
-      .catch(error => console.log(error));
+    const fetchTrendingMovies = async () => {
+      const data = await getTrendingMovies();
+      setTrendingMovies(data.results);
+    };
+    fetchTrendingMovies();
   }, []);
 
   return (
     <div>
-      {movies.map(movie => (
-        <div key={movie.id}>
-          <h2>{movie.title}</h2>
-          <p>{movie.overview}</p>
-        </div>
-      ))}
+      <h1>Trending movies</h1>
+      <ul>
+        {trendingMovies.map(movie => (
+          <li key={movie.id}>
+            <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

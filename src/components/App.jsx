@@ -1,30 +1,30 @@
 import React from 'react';
 import {
+  BrowserRouter as Router,
+  Switch,
   Route,
-  Routes,
-  //Redirect,
+  Redirect,
 } from 'react-router-dom';
 
 import Home from './Home/Home';
-//import Movies from './Movies';
-//import MovieDetails from './MovieDetails';
-//import Cast from './Cast';
-//import Reviews from './Reviews';
+import Movies from './Movies/Movies';
+import MovieDetails from './MovieDetails/MovieDetails';
+import Cast from './Cast/Cast';
+import Reviews from './Reviews/Reviews';
 
 function App() {
   return (
-    <div>
-      <Routes>
+    <Router>
+      <Switch>
         <Route exact path="/" component={Home} />
-      </Routes>
-    </div>
+        <Route exact path="/movies" component={Movies} />
+        <Route exact path="/movies/:movieId" component={MovieDetails} />
+        <Route exact path="/movies/:movieId/cast" component={Cast} />
+        <Route exact path="/movies/:movieId/reviews" component={Reviews} />
+        <Redirect to="/" />
+      </Switch>
+    </Router>
   );
 }
 
 export default App;
-
-//<Route exact path="/movies" component={Movies} />
-//<Route exact path="/movies/:movieId" component={MovieDetails} />
-//<Route exact path="/movies/:movieId/cast" component={Cast} />
-//<Route exact path="/movies/:movieId/reviews" component={Reviews} />
-//<Redirect to="/" />
