@@ -3,10 +3,14 @@ import PropTypes from 'prop-types';
 import { Link, useParams } from 'react-router-dom';
 
 import { getMovieDetails } from '../data/Api';
+import Cast from '../Cast/Cast';
+import Reviews from '../Reviews/Reviews';
 
 function MovieDetails() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+  const [showCast, setShowCast] = useState(false);
+  const [showReviews, setShowReviews] = useState(false);
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -15,6 +19,9 @@ function MovieDetails() {
     };
     fetchMovieDetails();
   }, [movieId]);
+
+  const toggleCast = () => setShowCast(!showCast);
+  const toggleReviews = () => setShowReviews(!showReviews);
 
   if (!movie) return <div>Loading...</div>;
 
@@ -40,13 +47,19 @@ function MovieDetails() {
       <nav>
         <ul>
           <li>
-            <Link to={`/movies/${movieId}/cast`}>Cast</Link>
+            <Link to={`/movies/${movieId}/cast`} onClick={toggleCast}>
+              Cast
+            </Link>
           </li>
           <li>
-            <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
+            <Link to={`/movies/${movieId}/reviews`} onClick={toggleReviews}>
+              Reviews
+            </Link>
           </li>
         </ul>
       </nav>
+      {showCast && <Cast movieId={movieId} />}
+      {showReviews && <Reviews movieId={movieId} />}
     </div>
   );
 }

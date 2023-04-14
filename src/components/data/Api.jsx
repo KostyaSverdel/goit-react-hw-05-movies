@@ -40,5 +40,3 @@ export const getMovieReviews = async movieId => {
   const data = await response.json();
   return data;
 };
-
-//Home, Movies, MovieDetails, Cast и Reviews
