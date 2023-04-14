@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { searchMovies } from '../data/Api';
@@ -7,6 +7,18 @@ function Movies({ history }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    const savedSearchQuery = localStorage.getItem('searchQuery');
+    const savedSearchResults = JSON.parse(
+      localStorage.getItem('searchResults')
+    );
+
+    if (savedSearchQuery && savedSearchResults) {
+      setSearchQuery(savedSearchQuery);
+      setSearchResults(savedSearchResults);
+    }
+  }, []);
 
   const handleSearchInput = e => {
     setSearchQuery(e.target.value);
@@ -25,6 +37,8 @@ function Movies({ history }) {
       } else {
         setError('');
         setSearchResults(results);
+        localStorage.setItem('searchResults', JSON.stringify(results));
+        localStorage.setItem('searchQuery', searchQuery);
       }
     } catch (error) {
       console.error(error);
