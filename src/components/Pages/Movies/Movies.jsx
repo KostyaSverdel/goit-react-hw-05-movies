@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
-import { searchMovies } from '../data/Api';
+import { searchMovies } from 'data/Api';
 
 function Movies() {
   const location = useLocation();
@@ -65,7 +65,15 @@ function Movies() {
       <ul>
         {searchResults.map(movie => (
           <li key={movie.id}>
-            <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+            <Link
+              to={{
+                pathname: `/movies/${movie.id}`,
+                search: `?query=${searchQuery}`,
+              }}
+              state={location}
+            >
+              {movie.title}
+            </Link>
           </li>
         ))}
       </ul>

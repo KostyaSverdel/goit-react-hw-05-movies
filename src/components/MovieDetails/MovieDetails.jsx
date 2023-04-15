@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useParams } from 'react-router-dom';
 
-import { getMovieDetails } from '../data/Api';
+import { getMovieDetails } from 'data/Api';
 import Cast from '../Cast/Cast';
 import Reviews from '../Reviews/Reviews';
 

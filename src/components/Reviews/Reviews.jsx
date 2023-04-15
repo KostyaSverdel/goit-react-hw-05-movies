@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { getMovieReviews } from '../data/Api';
+import { getMovieReviews } from 'data/Api';
 
 function Reviews({ movieId }) {
   const [reviews, setReviews] = useState([]);

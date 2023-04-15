@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { getMovieCredits } from '../data/Api';
+import { getMovieCredits } from 'data/Api';
 
 function Cast({ movieId }) {
   const [cast, setCast] = useState([]);
