@@ -1,24 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { searchMovies } from '../data/Api';
 
-function Movies({ history }) {
+function Movies() {
+  const location = useLocation();
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const savedSearchQuery = localStorage.getItem('searchQuery');
-    const savedSearchResults = JSON.parse(
-      localStorage.getItem('searchResults')
-    );
-
-    if (savedSearchQuery && savedSearchResults) {
-      setSearchQuery(savedSearchQuery);
-      setSearchResults(savedSearchResults);
+    const params = new URLSearchParams(location.search);
+    const query = params.get('query');
+    if (query) {
+      setSearchQuery(query);
+      fetchSearchResults(query);
     }
-  }, []);
+  }, [location.search]);
 
   const handleSearchInput = e => {
     setSearchQuery(e.target.value);
@@ -30,15 +28,20 @@ function Movies({ history }) {
       setError('Please enter a search query');
       return;
     }
+    fetchSearchResults(searchQuery);
+  };
+
+  const fetchSearchResults = async query => {
     try {
-      const { results } = await searchMovies(searchQuery);
+      const { results } = await searchMovies(query);
       if (results.length === 0) {
-        setError(`No results found for '${searchQuery}'`);
+        setError(`No results found for '${query}'`);
       } else {
         setError('');
         setSearchResults(results);
-        localStorage.setItem('searchResults', JSON.stringify(results));
-        localStorage.setItem('searchQuery', searchQuery);
+        setSearchQuery(query);
+        const params = new URLSearchParams({ query });
+        window.history.replaceState(null, '', `?${params.toString()}`);
       }
     } catch (error) {
       console.error(error);
