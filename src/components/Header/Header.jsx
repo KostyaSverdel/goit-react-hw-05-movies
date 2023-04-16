@@ -1,16 +1,21 @@
 import { NavLink } from 'react-router-dom';
+import css from '../Header/Header.module.css';
 
 export const Header = () => {
   return (
-    <div className="nav-bar">
-      <ul className="ul-nav-bar">
+    <div className={css.navBar}>
+      <ul className={css.ulNavBar}>
         <li>
-          <NavLink className="nav-link" to="/">
+          <NavLink className={css.navLink} to="/" activeClassName={css.active}>
             Home
           </NavLink>
         </li>
         <li>
-          <NavLink className="nav-link" to="/movies">
+          <NavLink
+            className={css.navLink}
+            to="/movies"
+            activeClassName={css.active}
+          >
             Movies
           </NavLink>
         </li>

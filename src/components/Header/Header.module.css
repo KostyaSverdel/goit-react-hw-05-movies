@@ -1,0 +1,27 @@
+.navBar {
+    background-color: black;
+}
+
+.ulNavBar {
+    display: flex;
+    gap: 300px;
+    padding-left: 100px;
+    height: 100px;
+    margin-top: 0px;
+    align-items: center;
+}
+
+.navLink {
+   font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.14;
+    letter-spacing: .02em;
+    color: white;
+}
+
+.active {
+color: gold;
+font-weight: 700;
+    font-size: 17px;
+}

@@ -1,0 +1,29 @@
+.homePage {
+    display: flex;
+    justify-content: center;
+    gap: 150px;
+}
+
+.TitlePage {
+    display: flex;
+    align-items: flex-start;
+    height: 100px;
+    font-family: "Roboto", sans-serif;
+}
+
+.listPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+.titleMovies {
+    color: black;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.14;
+    letter-spacing: .02em;
+    
+}
