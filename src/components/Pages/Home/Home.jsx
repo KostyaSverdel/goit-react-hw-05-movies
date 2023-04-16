@@ -14,16 +14,18 @@ function Home() {
   }, []);
 
   return (
-    <div>
-      <h1>Trending movies</h1>
-      <ul>
-        {trendingMovies.map(movie => (
-          <li key={movie.id}>
-            <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <section className="conteiner-home-page">
+      <div className="home-page">
+        <h1>Trending movies</h1>
+        <ul>
+          {trendingMovies.map(movie => (
+            <li key={movie.id}>
+              <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
   );
 }
 

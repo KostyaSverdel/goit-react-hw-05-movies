@@ -1,17 +1,13 @@
 import React from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
+import { Header } from '../Header/Header';
 
 const Layout = () => {
   return (
-    <div className="nav-bar">
-      <NavLink className="nav-link" to="/">
-        Home
-      </NavLink>
-      <NavLink className="nav-link" to="/movies">
-        Movies
-      </NavLink>
+    <>
+      <Header />
       <Outlet />
-    </div>
+    </>
   );
 };
 
