@@ -1,23 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { searchMovies } from 'data/Api';
 import css from '../Movies/Movies.module.css';
 
 function Movies(history) {
   const location = useLocation();
-  const [searchQuery, setSearchQuery] = useState('');
+  const [params, setParams] = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState(params.get('query') || '');
   const [searchResults, setSearchResults] = useState([]);
   const [error, setError] = useState('');
 
+  const fetchSearchResults = useCallback(
+    async query => {
+      try {
+        const { results } = await searchMovies(query);
+        if (results.length === 0) {
+          setError(`No results found for '${query}'`);
+        } else {
+          setError('');
+          setSearchResults(results);
+          setParams({ query });
+        }
+      } catch (error) {
+        console.error(error);
+        setError('Something went wrong. Please try again later.');
+      }
+    },
+    [setParams]
+  );
+
   useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const query = params.get('query');
-    if (query) {
-      setSearchQuery(query);
-      fetchSearchResults(query);
-    }
-  }, [location.search]);
+    const query = params.get('query') || '';
+    setSearchQuery(query);
+    fetchSearchResults(query);
+  }, [params, fetchSearchResults]);
 
   const handleSearchInput = e => {
     setSearchQuery(e.target.value);
@@ -30,24 +47,6 @@ function Movies(history) {
       return;
     }
     fetchSearchResults(searchQuery);
-  };
-
-  const fetchSearchResults = async query => {
-    try {
-      const { results } = await searchMovies(query);
-      if (results.length === 0) {
-        setError(`No results found for '${query}'`);
-      } else {
-        setError('');
-        setSearchResults(results);
-        setSearchQuery(query);
-        const params = new URLSearchParams({ query });
-        window.history.replaceState(null, '', `?${params.toString()}`);
-      }
-    } catch (error) {
-      console.error(error);
-      setError('Something went wrong. Please try again later.');
-    }
   };
 
   return (
@@ -69,16 +68,19 @@ function Movies(history) {
       <ul className={css.SearchMoviesResults}>
         {searchResults.map(movie => (
           <li key={movie.id}>
-            <Link
-              className={css.SearchMoviesResultsLink}
-              to={{
-                pathname: `/movies/${movie.id}`,
-                search: `?query=${searchQuery}`,
-              }}
-              state={location}
-            >
-              {movie.title}
-            </Link>
+            <div>
+              {handleSearchInput ? (
+                <Link
+                  className={css.SearchMoviesResultsLink}
+                  to={`${movie.id}`}
+                  state={location}
+                >
+                  {movie.title}
+                </Link>
+              ) : (
+                <h2>{movie.title}</h2>
+              )}
+            </div>
           </li>
         ))}
       </ul>
