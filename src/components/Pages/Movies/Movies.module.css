@@ -1,0 +1,76 @@
+.SearchMoviesPage {
+    display: flex;
+    gap: 50px;
+    flex-direction: column;
+}
+
+.SearchMoviesTitle {
+    line-height: 1.14;
+    letter-spacing: .02em;
+    margin-left: 60px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+}
+
+.SearchMoviesInputForm {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.14;
+    letter-spacing: .02em;
+    background: #2f303a;
+    color: rgba(255, 255, 255, 0.6);
+    width: 358px;
+    height: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.15));
+    border-radius: 4px;
+    padding-left: 16px;
+}
+
+
+.SearchMoviesButton{
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.14;
+    letter-spacing: .02em;
+    background: black;
+    color: gold;
+    width: 200px;
+    height: 50px;
+    margin-left: 12px;
+    border: none;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 15%);
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 28px;
+}
+
+.SearchMoviesButton:hover, 
+.SearchMoviesButton:focus {
+color: black;
+background-color: gold;
+}
+
+.SearchMoviesForm {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.SearchMoviesResults {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.SearchMoviesResultsLink{
+    color: black;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.14;
+    letter-spacing: .02em;
+}

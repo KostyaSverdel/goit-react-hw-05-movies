@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 import { searchMovies } from 'data/Api';
+import css from '../Movies/Movies.module.css';
 
 function Movies(history) {
   const location = useLocation();
@@ -50,22 +51,26 @@ function Movies(history) {
   };
 
   return (
-    <div>
-      <h1>Search for Movies</h1>
-      <form onSubmit={handleSubmit}>
+    <div className={css.SearchMoviesPage}>
+      <h1 className={css.SearchMoviesTitle}>Search for Movies</h1>
+      <form className={css.SearchMoviesForm} onSubmit={handleSubmit}>
         <input
+          className={css.SearchMoviesInputForm}
           type="text"
           value={searchQuery}
           onChange={handleSearchInput}
           placeholder="Search for a movie"
         />
-        <button type="submit">Search</button>
+        <button className={css.SearchMoviesButton} type="submit">
+          Search
+        </button>
         {error && <p>{error}</p>}
       </form>
-      <ul>
+      <ul className={css.SearchMoviesResults}>
         {searchResults.map(movie => (
           <li key={movie.id}>
             <Link
+              className={css.SearchMoviesResultsLink}
               to={{
                 pathname: `/movies/${movie.id}`,
                 search: `?query=${searchQuery}`,

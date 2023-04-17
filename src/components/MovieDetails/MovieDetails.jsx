@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link, useParams } from 'react-router-dom';
-
+import { Link, useParams, useLocation } from 'react-router-dom';
+import css from '../MovieDetails/MovieDetails.module.css';
 import { getMovieDetails } from 'data/Api';
 import Cast from '../Cast/Cast';
 import Reviews from '../Reviews/Reviews';
@@ -22,6 +22,7 @@ function MovieDetails() {
 
   const toggleCast = () => setShowCast(!showCast);
   const toggleReviews = () => setShowReviews(!showReviews);
+  const location = useLocation();
 
   if (!movie) return <div>Loading...</div>;
 
@@ -36,7 +37,10 @@ function MovieDetails() {
   } = movie;
 
   return (
-    <div>
+    <div className={css.MovieDetailsPage}>
+      <Link className={css.ButtonBack} to={location.state}>
+        Back
+      </Link>
       <h1>{title}</h1>
       <img src={`https://image.tmdb.org/t/p/w500${posterPath}`} alt={title} />
       <p>{overview}</p>
@@ -45,14 +49,22 @@ function MovieDetails() {
       <p>Runtime: {runtime} minutes</p>
       <p>Vote average: {voteAverage}</p>
       <nav>
-        <ul>
+        <ul className={css.MovieDetailsNavLink}>
           <li>
-            <Link to={`/movies/${movieId}/cast`} onClick={toggleCast}>
+            <Link
+              className={css.MovieDetailsLink}
+              to={`/movies/${movieId}/cast`}
+              onClick={toggleCast}
+            >
               Cast
             </Link>
           </li>
           <li>
-            <Link to={`/movies/${movieId}/reviews`} onClick={toggleReviews}>
+            <Link
+              className={css.MovieDetailsLink}
+              to={`/movies/${movieId}/reviews`}
+              onClick={toggleReviews}
+            >
               Reviews
             </Link>
           </li>

@@ -43,4 +43,25 @@ ul {
 a {
   text-decoration: none;
 }
+a:hover {
+  color: gold;
+}
 
+a:focus {
+  color: gold;
+}
+
+.active {
+  color: gold;
+  font-weight: 700;
+      font-size: 17px;
+  }
+
+  p {
+    color: black;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.14;
+    letter-spacing: .02em;
+  }
