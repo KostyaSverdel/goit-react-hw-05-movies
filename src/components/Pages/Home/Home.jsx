@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { getTrendingMovies } from 'data/Api';
 import css from '../Home/Home.module.css';
@@ -20,9 +20,11 @@ function Home() {
       <ul className={css.listPage}>
         {trendingMovies.map(movie => (
           <li key={movie.id}>
-            <Link className={css.titleMovies} to={`/movies/${movie.id}`}>
-              {movie.title}
-            </Link>
+            <Suspense>
+              <Link className={css.titleMovies} to={`/movies/${movie.id}`}>
+                {movie.title}
+              </Link>
+            </Suspense>
           </li>
         ))}
       </ul>

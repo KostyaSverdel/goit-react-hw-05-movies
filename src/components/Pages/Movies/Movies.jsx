@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { searchMovies } from 'data/Api';
@@ -69,17 +69,19 @@ function Movies(history) {
         {searchResults.map(movie => (
           <li key={movie.id}>
             <div>
-              {handleSearchInput ? (
-                <Link
-                  className={css.SearchMoviesResultsLink}
-                  to={`${movie.id}`}
-                  state={location}
-                >
-                  {movie.title}
-                </Link>
-              ) : (
-                <h2>{movie.title}</h2>
-              )}
+              <Suspense>
+                {handleSearchInput ? (
+                  <Link
+                    className={css.SearchMoviesResultsLink}
+                    to={`${movie.id}`}
+                    state={location}
+                  >
+                    {movie.title}
+                  </Link>
+                ) : (
+                  <h2>{movie.title}</h2>
+                )}
+              </Suspense>
             </div>
           </li>
         ))}
