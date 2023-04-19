@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useCallback, Suspense } from 'react';
-import PropTypes from 'prop-types';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { searchMovies } from 'data/Api';
 import css from '../Movies/Movies.module.css';
 
-function Movies(history) {
+function Movies() {
   const location = useLocation();
   const [params, setParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(params.get('query') || '');
@@ -74,7 +73,7 @@ function Movies(history) {
                   <Link
                     className={css.SearchMoviesResultsLink}
                     to={`${movie.id}`}
-                    state={location}
+                    state={{ from: location }}
                   >
                     {movie.title}
                   </Link>
@@ -89,11 +88,5 @@ function Movies(history) {
     </div>
   );
 }
-
-Movies.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
-};
 
 export default Movies;
