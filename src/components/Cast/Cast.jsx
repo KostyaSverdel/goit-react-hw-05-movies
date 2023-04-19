@@ -16,18 +16,22 @@ function Cast({ movieId }) {
   return (
     <div>
       <h2>Cast</h2>
-      <ul>
-        {cast.map(actor => (
-          <li key={actor.id}>
-            <img
-              src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`}
-              alt={''}
-            />
-            <p>{actor.name}</p>
-            <p>{actor.character}</p>
-          </li>
-        ))}
-      </ul>
+      {cast.length > 0 ? (
+        <ul>
+          {cast.map(actor => (
+            <li key={actor.id}>
+              <img
+                src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`}
+                alt={''}
+              />
+              <p>{actor.name}</p>
+              <p>{actor.character}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No actors found.</p>
+      )}
     </div>
   );
 }

@@ -14,13 +14,10 @@ function Movies() {
     async query => {
       try {
         const { results } = await searchMovies(query);
-        if (results.length === 0) {
-          setError(`No results found for '${query}'`);
-        } else {
-          setError('');
-          setSearchResults(results);
-          setParams({ query });
-        }
+        const isSearchSuccessful = results.length > 0;
+        setSearchResults(results);
+        setParams({ query });
+        setError(isSearchSuccessful ? '' : `No results found for '${query}'`);
       } catch (error) {
         console.error(error);
         setError('Something went wrong. Please try again later.');
@@ -62,7 +59,7 @@ function Movies() {
         <button className={css.SearchMoviesButton} type="submit">
           Search
         </button>
-        {error && <p>{error}</p>}
+        {searchResults.length === 0 && error && <p>{error}</p>}
       </form>
       <ul className={css.SearchMoviesResults}>
         {searchResults.map(movie => (

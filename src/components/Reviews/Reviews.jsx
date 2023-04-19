@@ -16,7 +16,7 @@ function Reviews({ movieId }) {
   return (
     <div>
       <h2>Reviews:</h2>
-      {reviews.length > 0 ? (
+      {reviews.length ? (
         <ul>
           {reviews.map(review => (
             <li key={review.id}>
